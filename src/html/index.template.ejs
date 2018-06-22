@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <title>Softex test</title>
+
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#7965b2">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta name="HandheldFriendly" content="True">
+
+  <% function normalizePath (prefix, str) {
+      const lastIndexOf = str.lastIndexOf('/')
+
+      return `${prefix}${str.slice(lastIndexOf)}`
+    }
+
+    const cssFiles = htmlWebpackPlugin.files.css,
+          jsFiles = htmlWebpackPlugin.files.js
+  %>
+
+  <% for(let i=0; i<cssFiles.length; i++) { %>
+    <link rel="preload" href="<%= normalizePath('/css', cssFiles[i]) %>" as="style">
+  <% } %>
+    <link rel="preload" href="/fonts/montserrat-medium/montserrat-medium.woff2" as="font" type="font/woff2" crossorigin>
+  <% for(let i=0; i<cssFiles.length; i++) { %>
+    <link rel="stylesheet" href="<%= normalizePath('/css', cssFiles[i]) %>">
+  <% } %>
+  <% for(let i=0; i<jsFiles.length; i++) {%>
+    <script defer src="<%= normalizePath('/js', jsFiles[i]) %>"></script>
+  <% } %>
+  </head>
+  <body>
+    <div id="app">
+      <!--vue-ssr-outlet-->
+    </div>
+  </body>
+</html>

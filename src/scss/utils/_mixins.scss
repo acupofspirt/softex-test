@@ -1,0 +1,40 @@
+@mixin med($max) {
+  @media (max-width: #{$max}px) {
+    @content;
+  }
+}
+@mixin medmin($min) {
+  @media (min-width: #{$min}px) {
+    @content;
+  }
+}
+@mixin catPickOffset($from, $to, $factor) {
+  @for $i from $from through $to {
+    &:nth-child(#{$i+1}) {
+      transform: translateX(#{$i*$factor}#{"%"});
+    }
+  }
+}
+@mixin aspect-ratio($arglist... /*$ratio or $width, $height*/ ) {
+  $map: keywords($arglist);
+  $height: map-get($map, height) or nth-value($arglist, 2);
+  $width: map-get($map, width)  or nth-value($arglist, 1);
+  $ratio: map-get($map, ratio)  or if($width and $height, $width/$height, nth-value($arglist, 1)) or 1;
+  $padding: 1/$ratio * 100%;
+
+  &:before, &:after {
+    display: table;
+    clear: both;
+
+    width: 1px;
+    margin-left: -1px;
+
+    content: "";
+  }
+
+  &:before {
+    float: left;
+
+    padding-bottom: $padding;
+  }
+}

@@ -1,0 +1,14 @@
+/* Vendor */
+
+/* Utils */
+@import "utils/normalize";
+@import "utils/variables";
+@import "utils/mixins";
+@import "utils/fonts";
+
+/* Global/reusable */
+@import "styles/global";
+@import "styles/freq";
+
+/* Pages */
+@import "styles/pages/index";
